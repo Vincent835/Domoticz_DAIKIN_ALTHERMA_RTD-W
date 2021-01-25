@@ -7,14 +7,12 @@ Requirements: <br>
        If python plugin service is not working try "sudo apt-get install python3.7 libpython3.7 python3.7-dev -y"<br>
     2. Python module minimalmodbus -> http://minimalmodbus.readthedocs.io/en/master/
         (pi@raspberrypi:~$ sudo pip3 install minimalmodbus)<br>
-    3.RTD-W monitoring and control interface for Altherma HT hydroboxes (http://www.realtime-controls.co.uk/index.php/site/multi-language-download/rtd_w_daikin_control_interface)<br>
-    4.Communication module Modbus USB to RS485 converter module<br>
-
-    The RTD-W is a monitoring and control interface for Altherma HT hydroboxes (heating only and reversible),
-    small inverter chillers (EWA/YQ16..64 series) and VRV heating only hydrobox.
-    The interface is compatible with all units that are operated using a BRC21 remote controller network
-    connection and allows control of up to 16 units in a single group.
-    Note: this plugin is intended for a single RTD-W at address 1, with a single unit.
+    3. RTD-W monitoring and control interface for Altherma HT hydroboxes (http://www.realtime-controls.co.uk/index.php/site/multi-language-download/rtd_w_daikin_control_interface)<br>
+    4. Communication module Modbus USB to RS485 converter module<br>
+<br>
+The RTD-W is a monitoring and control interface for Altherma HT hydroboxes (heating only and reversible), small inverter chillers (EWA/YQ16..64 series) and VRV heating only hydrobox.<br>
+The interface is compatible with all units that are operated using a BRC21 remote controller network connection and allows control of up to 16 units in a single group.<br>
+Note: this plugin is intended for a single RTD-W at address 1, with a single unit.<br>
 <br>
 Installation: <br>
 cd ~/domoticz/plugins<br>
