@@ -30,11 +30,30 @@ Some are not set to "used" by default.
 Don't forget to restart your Domoticz server.<br>
 Tested on domoticz v2020.2
 
+## Warning
+States feedback of heating and DHW reheat on / off switches (device 8 and 9) are not actual states.<br>
+See below todo list.
+
 ## Change log
 
 | Version | Information|
 | ----- | ---------- |
 | 0.1.0 | Initial private upload version |
+
+
+## Todo list
+Correct the state feedback of the heating and DHW heating on / off switches
+
+I noticed that holding register:
+* H0004 Modbus ON / OFF space heating or cooling (device 8)
+* H0006 Modbus Domestic Hot Water reheat (device 9)<br>
+do not correspond to states displayed on Remcon.
+ 
+The commands transmitted remotely are taken into account.
+But the settings made locally do not go back to these registers.<br>
+I am waiting for a notice from RealTime Control Systems.
+
+However, devices unit 16 and 22 indicate actual state.
 
 ## Used python modules: <br>
 pyserial -> https://pythonhosted.org/pyserial/ <br>
