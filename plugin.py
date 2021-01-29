@@ -18,7 +18,7 @@ Requirements:
 """
 
 """
-<plugin key="RTD-W" name="DAIKIN ALTHERMA HT (RTD-W Modbus)" version="0.1.0" author="Vincent835">
+<plugin key="RTD-W" name="DAIKIN ALTHERMA HT (RTD-W Modbus)" version="0.1.1" author="Vincent835">
     <params>
         <param field="SerialPort" label="Modbus Port" width="200px" required="true" default="/dev/ttyUSB1" />
         <param field="Mode1" label="Baud rate" width="40px" required="true" default="9600"  />
@@ -265,7 +265,16 @@ class BasePlugin:
                     value = self.rs485.read_register(Unit[1], number_of_decimals=Unit[2], functioncode=Unit[3], signed=Unit[4])
 ##                if Unit[5] == int(__NVALUE):
                 if Unit[5] == 0:
-                    Devices[Unit[0]].Update( int(value), str(value * 100))
+                    if Unit[0] == unit.ON_OFF_Command_Space_Heating or Unit[0] == unit.DHW_Reheat_Command:
+                        pass
+                    elif Unit[0] == unit.ON_OFF_Space_Heating:
+                        Devices[Unit[0]].Update( int(value), str(value * 100))
+                        Devices[unit.ON_OFF_Command_Space_Heating].Update( int(value), str(value * 100))
+                    elif Unit[0] == unit.DHW_Reheat:
+                        Devices[Unit[0]].Update( int(value), str(value * 100))
+                        Devices[unit.DHW_Reheat_Command].Update( int(value), str(value * 100))
+                    else:
+                        Devices[Unit[0]].Update( int(value), str(value * 100))
                 elif Unit[0] == unit.Shift_Value_Leaving_Water_Temp:
                     Devices[Unit[0]].Update( int(value!=0), str((value+6) * 10))
                 elif (Unit[0] == unit.Control_Source):

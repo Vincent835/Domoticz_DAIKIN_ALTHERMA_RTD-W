@@ -30,19 +30,17 @@ Some are not set to "used" by default.
 Don't forget to restart your Domoticz server.<br>
 Tested on domoticz v2020.2
 
-## Warning
-States feedback of heating and DHW reheat on / off switches (device 8 and 9) are not actual states.<br>
-See below todo list.
 
 ## Change log
 
 | Version | Information|
 | ----- | ---------- |
+| 0.1.1 | Sync. switchs heating and reheat DHW status with contacs status|
 | 0.1.0 | Initial private upload version |
 
 
 ## Todo list
-Correct the state feedback of the heating and DHW heating on / off switches
+Done : Correct the state feedback of the heating and DHW heating on / off switches
 
 I noticed that holding register:
 * H0004 Modbus ON / OFF space heating or cooling (device 8)
