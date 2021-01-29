@@ -43,7 +43,7 @@ Tested on domoticz v2020.2
 ## Todo list
 Test if devices exist before updating them
 
-Done : Correct the state feedback of the heating and DHW heating on / off switches
+Done : Correct the state feedback of the heating and DHW reheat on / off switches
 
 I noticed that holding register:
 * H0004 Modbus ON / OFF space heating or cooling (device 8)
