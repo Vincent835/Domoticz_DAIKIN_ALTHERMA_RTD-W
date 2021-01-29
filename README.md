@@ -35,17 +35,20 @@ Tested on domoticz v2020.2
 
 | Version | Information|
 | ----- | ---------- |
+| 0.1.2 | Update Switch selector local/externe/tout |
 | 0.1.1 | Sync. switchs heating and reheat DHW status with contacs status|
 | 0.1.0 | Initial private upload version |
 
 
 ## Todo list
+Test if devices exist before updating them
+
 Done : Correct the state feedback of the heating and DHW heating on / off switches
 
 I noticed that holding register:
 * H0004 Modbus ON / OFF space heating or cooling (device 8)
 * H0006 Modbus Domestic Hot Water reheat (device 9)<br>
-do not correspond to states displayed on Remcon.
+do not correspond to states displayed on Remote controler.
  
 The commands transmitted remotely are taken into account.
 But the settings made locally do not go back to these registers.<br>

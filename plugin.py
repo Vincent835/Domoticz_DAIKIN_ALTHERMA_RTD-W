@@ -18,7 +18,7 @@ Requirements:
 """
 
 """
-<plugin key="RTD-W" name="DAIKIN ALTHERMA HT (RTD-W Modbus)" version="0.1.1" author="Vincent835">
+<plugin key="RTD-W" name="DAIKIN ALTHERMA HT (RTD-W Modbus)" version="0.1.2" author="Vincent835">
     <params>
         <param field="SerialPort" label="Modbus Port" width="200px" required="true" default="/dev/ttyUSB1" />
         <param field="Mode1" label="Baud rate" width="40px" required="true" default="9600"  />
@@ -123,7 +123,7 @@ class BasePlugin:
         [unit.Start_DHW_Storage, "Commande stockage ECS", "Switch", 0, 0, 0, {}, __UNUSED, ""],
         [unit.Control_Source, "Sources de contrôle", "Selector Switch", 0, 0, 0,
             {"LevelNames" : "Tout|Externe|Local|Tout",
-             "LevelOffHidden" : "false",
+             "LevelOffHidden" : "true",
              "SelectorStyle" : "0"},
              __UNUSED, ""],
         [unit.Quiet_Mode, "Mode silencieux", "Switch", 0, 0, 0, {}, __UNUSED, ""],
@@ -233,7 +233,7 @@ class BasePlugin:
                     if (Unit == unit.Shift_Value_Leaving_Water_Temp):
                         Devices[Unit].Update(int(payload!=0), str((payload+6) * 10))   # Update Level device convert for switch selector
                     elif (Unit == unit.Control_Source):
-                        Devices[Unit].Update(int(payload!=1), str(payload * 10))
+                        Devices[Unit].Update(int(payload!=2), str(payload * 10))
                     else:
                         Devices[Unit].Update(0, str(payload)) # Update Level device
                    
@@ -278,7 +278,7 @@ class BasePlugin:
                 elif Unit[0] == unit.Shift_Value_Leaving_Water_Temp:
                     Devices[Unit[0]].Update( int(value!=0), str((value+6) * 10))
                 elif (Unit[0] == unit.Control_Source):
-                    Devices[Unit[0]].Update(int(value!=0), str(value * 10))
+                    Devices[Unit[0]].Update(int(value!=2), str(value * 10))
                 elif Unit[0] == unit.Pump_Running_Hour_Counter:
                     Devices[Unit[0]].Update( 0, str(value)+";0")
                 else:
