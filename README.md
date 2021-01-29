@@ -35,7 +35,7 @@ Tested on domoticz v2020.2
 
 | Version | Information|
 | ----- | ---------- |
-| 0.1.2 | Update Switch selector local/externe/tout |
+| 0.1.2 | Update "Contol source" Switch selector : local/externe/tout |
 | 0.1.1 | Sync. switchs heating and reheat DHW status with contacs status|
 | 0.1.0 | Initial private upload version |
 
