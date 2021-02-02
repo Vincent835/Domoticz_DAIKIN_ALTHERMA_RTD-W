@@ -33,26 +33,29 @@ Tested on domoticz v2020.2
 
 ## Change log
 
-| Version | Information|
-| ----- | ---------- |
-| 0.1.2 | Update "Contol source" Switch selector : local/externe/tout |
-| 0.1.1 | Sync. switchs heating and reheat DHW status with contacs status|
-| 0.1.0 | Initial private upload version |
+| Version | Information                                                     |
+| ------- | --------------------------------------------------------------- |
+| 0.1.3   | check if device exist before update                             |
+| 0.1.2   | Update "Contol source" Switch selector : local/externe/tout     |
+| 0.1.1   | Sync. switchs heating and reheat DHW status with contacs status |
+| 0.1.0   | Initial private upload version                                  |
 
 
 ## Todo list
-Test if devices exist before updating them
+Issue : When device is recreated after deleting it. It is created, but there is an error => 'Error: dzVents: Error: (3.1.3) Discarding device. No last update info found'
+
+Done : Test if devices exist before updating them
 
 Done : Correct the state feedback of the heating and DHW reheat on / off switches
 
 I noticed that holding register:
 * H0004 Modbus ON / OFF space heating or cooling (device 8)
 * H0006 Modbus Domestic Hot Water reheat (device 9)<br>
-do not correspond to states displayed on Remote controler.
+do not correspond to status displayed on Remote controler.
  
 The commands transmitted remotely are taken into account.
-But the settings made locally do not go back to these registers.<br>
-I am waiting for a notice from RealTime Control Systems.
+But settings made locally do not go back to these registers.<br>
+For RealTime Control Systems this is the normal operation.
 
 However, devices unit 16 and 22 indicate actual state.
 

@@ -18,7 +18,7 @@ Requirements:
 """
 
 """
-<plugin key="RTD-W" name="DAIKIN ALTHERMA HT (RTD-W Modbus)" version="0.1.2" author="Vincent835">
+<plugin key="RTD-W" name="DAIKIN ALTHERMA HT (RTD-W Modbus)" version="0.1.3" author="Vincent835">
     <params>
         <param field="SerialPort" label="Modbus Port" width="200px" required="true" default="/dev/ttyUSB1" />
         <param field="Mode1" label="Baud rate" width="40px" required="true" default="9600"  />
@@ -227,21 +227,19 @@ class BasePlugin:
                 Domoticz.Log("write_register n° " + str(register_info[1]) + "', Payload= " + str(payload) +  ", nb_decimals = " + str(register_info[2]) +", signed: " + str(register_info[4]))
 
                 Domoticz.Debug("MODBUS DEBUG - RESULT: " + str(result))
-                if (str(Command) == "On"): Devices[Unit].Update(1, "1") # Update device to ON
+                if (str(Command) == "On"): Devices[Unit].Update(1, "1")  # Update device to ON
                 if (str(Command) == "Off"): Devices[Unit].Update(0, "0") # Update device to OFF
                 if (str(Command) == "Set Level"):
                     if (Unit == unit.Shift_Value_Leaving_Water_Temp):
                         Devices[Unit].Update(int(payload!=0), str((payload+6) * 10))   # Update Level device convert for switch selector
                     elif (Unit == unit.Control_Source):
-                        Devices[Unit].Update(int(payload!=2), str(payload * 10))
+                        Devices[Unit].Update(int(payload!=2), str(payload * 10))       # Update Level device convert for switch selector
                     else:
                         Devices[Unit].Update(0, str(payload)) # Update Level device
                    
             except:
                 Domoticz.Error("Modbus error communicating! check your settings!")
-                Devices[unit].Update(1, "0") # Set value to 0 (error)
-
-        
+                       
 
     def onConnect(self, Connection, Status, Description):
         Domoticz.Debug(
@@ -259,30 +257,33 @@ class BasePlugin:
                                
             # Get data from RTD-W and Update devices
             for Unit in self.__REGISTERS:
-                if Unit[0] == unit.Pump_Running_Hour_Counter:
-                    value = self.rs485.read_long(Unit[1], functioncode=Unit[3], signed=Unit[4])
-                else:
-                    value = self.rs485.read_register(Unit[1], number_of_decimals=Unit[2], functioncode=Unit[3], signed=Unit[4])
-##                if Unit[5] == int(__NVALUE):
-                if Unit[5] == 0:
-                    if Unit[0] == unit.ON_OFF_Command_Space_Heating or Unit[0] == unit.DHW_Reheat_Command:
-                        pass
-                    elif Unit[0] == unit.ON_OFF_Space_Heating:
-                        Devices[Unit[0]].Update( int(value), str(value * 100))
-                        Devices[unit.ON_OFF_Command_Space_Heating].Update( int(value), str(value * 100))
-                    elif Unit[0] == unit.DHW_Reheat:
-                        Devices[Unit[0]].Update( int(value), str(value * 100))
-                        Devices[unit.DHW_Reheat_Command].Update( int(value), str(value * 100))
+                if Unit[0] in Devices:
+                    if Unit[0] == unit.Pump_Running_Hour_Counter:
+                        value = self.rs485.read_long(Unit[1], functioncode=Unit[3], signed=Unit[4])
                     else:
-                        Devices[Unit[0]].Update( int(value), str(value * 100))
-                elif Unit[0] == unit.Shift_Value_Leaving_Water_Temp:
-                    Devices[Unit[0]].Update( int(value!=0), str((value+6) * 10))
-                elif (Unit[0] == unit.Control_Source):
-                    Devices[Unit[0]].Update(int(value!=2), str(value * 10))
-                elif Unit[0] == unit.Pump_Running_Hour_Counter:
-                    Devices[Unit[0]].Update( 0, str(value)+";0")
+                        value = self.rs485.read_register(Unit[1], number_of_decimals=Unit[2], functioncode=Unit[3], signed=Unit[4])
+##                  if Unit[5] == int(__NVALUE):
+                    if Unit[5] == 0:
+                        if Unit[0] == unit.ON_OFF_Command_Space_Heating or Unit[0] == unit.DHW_Reheat_Command:
+                            pass
+                        elif Unit[0] == unit.ON_OFF_Space_Heating:
+                            Devices[Unit[0]].Update( int(value), str(value * 100))
+                            Devices[unit.ON_OFF_Command_Space_Heating].Update( int(value), str(value * 100))
+                        elif Unit[0] == unit.DHW_Reheat:
+                            Devices[Unit[0]].Update( int(value), str(value * 100))
+                            Devices[unit.DHW_Reheat_Command].Update( int(value), str(value * 100))
+                        else:
+                            Devices[Unit[0]].Update( int(value), str(value * 100))
+                    elif Unit[0] == unit.Shift_Value_Leaving_Water_Temp:
+                        Devices[Unit[0]].Update( int(value!=0), str((value+6) * 10))
+                    elif (Unit[0] == unit.Control_Source):
+                        Devices[Unit[0]].Update(int(value!=2), str(value * 10))
+                    elif Unit[0] == unit.Pump_Running_Hour_Counter:
+                        Devices[Unit[0]].Update( 0, str(value)+";0")
+                    else:
+                        Devices[Unit[0]].Update( 0, str(value))
                 else:
-                    Devices[Unit[0]].Update( 0, str(value))
+                    Domoticz.Debug( "Device {} - {} does not exist".format(Unit[0],self.__UNITS[Unit[0]-1][1]) )
         else:
             Domoticz.Debug( "onHeartbeat - run again in {} heartbeats".format(self.__runAgain) )
 
