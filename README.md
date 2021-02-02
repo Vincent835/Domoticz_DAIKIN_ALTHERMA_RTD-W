@@ -30,6 +30,7 @@ Some are not set to "used" by default.
 Don't forget to restart your Domoticz server.<br>
 Tested on domoticz v2020.2
 
+![Devices list](https://raw.githubusercontent.com/Vincent835/Domoticz_DAIKIN_ALTHERMA_RTD-W/main/Pictures/devices.png)
 
 ## Change log
 
